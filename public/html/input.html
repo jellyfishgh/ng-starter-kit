@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>input-ng-model</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl" ng-init="myColor='lightblue'">
+        <p>First Name: <input type="text" ng-model="firstName" /></p>
+        <p>Last Name: <input type="text" ng-model="lastName" /></p>
+        <input style="background-color:{{myColor}}" ng-model="myColor" value="{{myColor}}" />
+        <h1 ng-click="changeName()">Full Name: {{fullName()}}</h1>
+        <ul>
+            <li ng-repeat="x in names">{{x.name + ", " + x.country}}</li>
+        </ul>
+    </div>
+    <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope) {
+                $scope.firstName = 'John';
+                $scope.lastName = 'Doe';
+                $scope.names = [
+                    {name:'Jani',country:'Norway'},
+                    {name:'Hege',country:'Sweden'},
+                    {name:'Kai',country:'Denmark'}
+                ];
+                $scope.fullName = function() {
+                    return $scope.firstName + ' ' + $scope.lastName;
+                }
+                $scope.changeName = function() {
+                    $scope.firstName = 'Nelly';
+                }
+            });
+        </script>
+</body>
+
+</html>

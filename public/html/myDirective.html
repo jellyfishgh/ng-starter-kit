@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>my angular directive</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body>
+    <!--<div ng-app="myApp1" jellyfish-directive></div>-->
+    <div ng-app="myApp2">
+        <jellyfish-directive></jellyfish-directive>
+        <jellyfish-directive></jellyfish-directive>
+    </div>
+    <script>
+        function d() {
+            return {
+                template: '<h1>I was made in a directive constructor!</h1>'
+            }
+        }
+        var app1 = angular.module('myApp1', []);
+        app1.directive('jellyfishDirective', d);
+        var app2 = angular.module('myApp2', []);
+        app2.directive('jellyfishDirective', d);
+    </script>
+</body>
+
+</html>

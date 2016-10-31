@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>angular scope</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="myApp">
+            <div>
+                <p>The rootScope's favoriate color:</p>
+                <h1 style="color:{{color}}">{{color}}</h1>
+            </div>
+            <div ng-controller="myCtrl">
+                <p>The scope of the controller's favoriate color:</p>
+                <h1 style="color:{{color}}">{{color}}</h1>
+            </div>
+            <div>
+                <p>The rootScope's favoriate color:</p>
+                <h1 style="color:{{color}}">{{color}}</h1>
+            </div>
+            <div ng-controller="myController">
+                <p>The scope of the controller's favoriate color:</p>
+                <h1 style="color:{{color}}">{{color}}</h1>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myApp', []);
+            app.run(function($rootScope) {
+                $rootScope.color = 'blue';
+            });
+            app.controller('myCtrl', function($scope) {
+                $scope.color = 'red';
+            });
+            app.controller('myController', function($scope) {
+                $scope.color = 'orange';
+            })
+        </script>
+    </body>
+</html>

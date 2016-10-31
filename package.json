@@ -1,0 +1,33 @@
+{
+  "name": "ng-starter-kit",
+  "version": "1.0.0",
+  "description": "angular@1.5.8 starter kit",
+  "main": "app.js",
+  "scripts": {
+    "test": "karma",
+    "start:dev": "webpack-dev-server --inline --content-base public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jellyfishgh/ng-starter-kit.git"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": "jellyfishgh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jellyfishgh/ng-starter-kit/issues"
+  },
+  "homepage": "https://github.com/jellyfishgh/ng-starter-kit#readme",
+  "dependencies": {
+    "angular": "^1.5.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
