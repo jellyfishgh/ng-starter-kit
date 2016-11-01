@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>angular filter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="" ng-init="names=[{name:'Jani',country:'Norway'},{name:'Carl',country:'Sweden'},{name:'Margareth',country:'England'},{name:'Hege',country:'Norway'},{name:'Joe',country:'Denmark'},{name:'Gustav',country:'Sweden'},{name:'Birgit',country:'Denmark'},{name:'Mary',country:'England'}];students=['Jani','Carl','Margareth','Hege','Joe','Gustav','Birgit','Mary','Kai']">
+        <input type="text" ng-model="firstName" />
+        <input type="text" ng-model="lastName" />
+        <p>The name is {{lastName | uppercase}}</p>
+        <p>The name is {{firstName | lowercase}}</p>
+        <ul>
+            <li ng-repeat="x in names | orderBy:'country'">
+                {{x.name + " " + x.country}}
+            </li>
+        </ul>
+        <input type="text" ng-model="filterTest" />
+        <ul>
+            <li ng-repeat="x in students | filter: filterTest">
+                {{x}}
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

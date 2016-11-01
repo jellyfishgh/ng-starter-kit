@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>angular filter</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    </head>
+
+    <body>
+        <div ng-app="myApp" ng-controller="namesCtrl">
+            <table border="1" width="100%">
+                <tr>
+                    <th ng-click="orderByMe('name')">Name</th>
+                    <th ng-click="orderByMe('country')">Country</th>
+                </tr>
+                <tr ng-repeat="x in names | orderBy: myOrderyBy">
+                    <td>{{x.name}}</td>
+                    <td>{{x.country}}</td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            angular.module('myApp', []).controller('namesCtrl', function($scope) {
+                $scope.names = [
+                    {
+                        name: 'Jani',
+                        country: 'Norway'
+                    }, {
+                        name: 'Carl',
+                        country: 'Sweden'
+                    }, {
+                        name: 'Margareth',
+                        country: 'England'
+                    }, {
+                        name: 'Hege',
+                        country: 'Norway'
+                    }, {
+                        name: 'Joe',
+                        country: 'Denmark'
+                    }, {
+                        name: 'Gustav',
+                        country: 'Sweden'
+                    }, {
+                        name: 'Birgit',
+                        country: 'Denmark'
+                    }, {
+                        name: 'Mary',
+                        country: 'England'
+                    }, {
+                        name: 'Kai',
+                        country: 'Norway'
+                    }
+                ];
+                $scope.orderByMe = function(x) {
+                    $scope.myOrderyBy = x;
+                }
+            });
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <style media="screen">
+        table, th, td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        th:not(:first-child):hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="customerCtrl">
+        <table>
+            <tr>
+                <th>Index</th>
+                <th ng-click="orderByMe('name')">Name</th>
+                <th ng-click="orderByMe('country')">Country</th>
+            </tr>
+            <tr ng-repeat="x in names | orderBy: myOrderyBy">
+                <td ng-if="$odd" style="color:red">{{$index + 1}}</td><td ng-if="$even" style="color:green">{{$index + 1}}</td>
+                <td ng-if="$odd" style="color:red">{{x.name}}</td><td ng-if="$even" style="color:green">{{x.name}}</td>
+                <td ng-if="$odd" style="color:red">{{x.country | uppercase}}</td><td ng-if="$even" style="color:green">{{x.country | uppercase}}</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+        app.controller('customerCtrl', function($scope, $http) {
+            $scope.orderByMe = function(x) {
+                $scope.myOrderyBy = x;
+            }
+            $http.get('/data/customers.json').then(function(response) {
+                $scope.names = response.data;
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>select</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <style media="screen">
+            span {
+                padding: 2px 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <select ng-model="selectedName1" ng-options="x for x in names"></select>
+            <span>{{selectedName1}}</span>
+            <select ng-model="selectedName2">
+                <option ng-repeat="x in names">{{x}}</option>
+            </select>
+            <span>{{selectedName2}}</span>
+            <br/>
+            <select ng-model="selectedStu1" ng-options="x.name for x in stus"></select>
+            <span>{{selectedStu1.name}}</span><span>{{selectedStu1.country}}</span>
+            <select ng-model="selectedStu2">
+                <option ng-repeat="x in stus">{{x.name}}</option>
+            </select>
+            <span>{{selectedStu2}}</span>
+            <br/>
+            <select ng-model="selectedCar1" ng-options="y.brand for (x, y) in cars"></select>
+            <span>{{selectedCar1.brand}}</span><span>{{selectedCar1.model}}</span><span>{{selectedCar1.color}}</span>
+            <select ng-model="selectedCar2">
+                <option ng-repeat="(x, y) in cars">{{y.brand}}</option>
+            </select>
+            <span>{{selectedCar2}}</span>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope, $http) {
+                $scope.names = ["Emil", "Tobias", "Linus"];
+                $http.get('/data/customers.json').then(function(response) {
+                    $scope.stus = response.data;
+                });
+                $scope.cars = {
+                    car01: {
+                        brand: "Ford",
+                        model: "Mustang",
+                        color: "red"
+                    },
+                    car02: {
+                        brand: "Fiat",
+                        model: "500",
+                        color: "white"
+                    },
+                    car03: {
+                        brand: "Volvo",
+                        model: "XC90",
+                        color: "black"
+                    }
+                };
+            });
+        </script>
+    </body>
+</html>

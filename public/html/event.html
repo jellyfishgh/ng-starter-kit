@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>events</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <style media="screen">
+            h1 {
+                border: 1px solid black;
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <h1 ng-mousemove="move($event)" ng-mouseenter="enter()" ng-mouseleave="leave()" style="color:{{color}}">Mouse over me!</h1>
+            <h2 ng-click="click()">{{count}}</h2>
+            <h3>{{coor}}</h3>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope) {
+                $scope.count = 0;
+                $scope.color = "blue";
+                $scope.move = function(e) {
+                    $scope.count++;
+                    $scope.coor = '(' + e.clientX + ',' + e.clientY + ')';
+                }
+                $scope.click = function() {
+                    $scope.count = 0;
+                }
+                $scope.enter = function() {
+                    $scope.color = "green";
+                }
+                $scope.leave = function() {
+                    $scope.color = "blue";
+                }
+            });
+        </script>
+    </body>
+</html>

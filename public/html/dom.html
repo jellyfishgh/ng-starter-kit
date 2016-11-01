@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>dom</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <p ng-show="isShowed">{{time}}</p>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope, $interval) {
+                var init = function() {
+                    var now = new Date();
+                    $scope.time = now.toLocaleString();
+                    $scope.isShowed = now.getSeconds() > 30;
+                };
+                init();
+                $interval(init, 1000);
+            });
+        </script>
+    </body>
+</html>
