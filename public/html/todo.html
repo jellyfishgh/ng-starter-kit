@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>todo list</title>
+        <link rel="stylesheet" href="/lib/w3.css" media="screen" title="no title">
+        <script src="/lib/angular.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="todoCtrl">
+            <h2>My Todo List</h2>
+            <form ng-submit="todoAdd()" name="myForm">
+                <input type="text" name="myInput" ng-model="todoInput" size="50" placeholder="Add New" required/>
+                <input ng-disabled="myForm.myInput.$invalid" type="submit" value="Add New" />
+            </form>
+            <br/>
+            <div ng-repeat="x in todoList">
+                <input type="checkbox" ng-model="x.done" ng-click="countmark()"/>
+                <span>{{x.todoText}}</span>
+            </div>
+            <p><button ng-disabled="nomark()" ng-click="remove()">Remove Marked</button></p>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myApp', []);
+            app.controller('todoCtrl', function($scope) {
+                $scope.todoList = [];
+                $scope.hasMark = false;
+                $scope.countmark = function() {
+                    $scope.hasMark = false;
+                    angular.forEach($scope.todoList, function(x) {
+                        if(x.done) {
+                            $scope.hasMark = true;
+                            return;
+                        }
+                    });
+                }
+                $scope.nomark = function() {
+                    return !$scope.hasMark;
+                }
+                $scope.todoAdd = function() {
+                    $scope.todoList.push({
+                        todoText: $scope.todoInput,
+                        done: false
+                    });
+                    $scope.todoInput = '';
+                }
+                $scope.remove = function() {
+                    $scope.hasMark = false;
+                    var oldList = $scope.todoList;
+                    $scope.todoList = [];
+                    angular.forEach(oldList, function(x) {
+                        if(!x.done) $scope.todoList.push(x);
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

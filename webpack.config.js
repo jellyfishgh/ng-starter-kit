@@ -6,14 +6,13 @@ module.exports = {
         app: ['./src/app.js']
     },
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'public/dist'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: 'bundle.min.js'
     },
     plugins: [
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.OccurrenceOrderPlugin()
     ],
     module: {
         loaders: [

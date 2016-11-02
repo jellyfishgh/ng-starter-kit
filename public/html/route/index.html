@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>spa</title>
+        <script src="/lib/angular.min.js"></script>
+        <script src="/lib/angular-route.js"></script>
+        <style>
+            .red {
+                background-color: red;
+            }
+
+            .blue {
+                background-color: blue;
+            }
+
+            .green {
+                background-color: green;
+            }
+
+            a {
+                padding: 5px;
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div ng-app="app" ng-init="colors=['red', 'green', 'blue', 'yellow', 'orange', 'pink', 'purple', 'anyrouter']">
+            <p>
+                <a href="#/">Main</a>
+            </p>
+            <a ng-repeat="x in colors" href="#{{x}}">{{x | camel}}</a>
+            <div ng-view></div>
+        </div>
+        <script>
+            var app = angular.module('app', ['ngRoute']);
+            var colors = ['yellow', 'orange', 'pink', 'purple', 'lightblue'];
+            app.filter('camel', function() {
+                return function(x) {
+                    return angular.uppercase(x[0]) + angular.lowercase(x.slice(1));
+                }
+            });
+            app.config(function($routeProvider) {
+                $routeProvider
+                .when('/', {templateUrl: 'main.html'})
+                .when('/red', {templateUrl: 'red.html'})
+                .when('/green', {templateUrl: 'green.html'})
+                .when('/blue', {templateUrl: 'blue.html'})
+                .when('/yellow', {
+                    templateUrl: 'color-template.html',
+                    controller: colors[0]
+                }).when('/orange', {
+                    templateUrl: 'color-template.html',
+                    controller: colors[1]
+                }).when('/pink', {
+                    templateUrl: 'color-template.html',
+                    controller: colors[2]
+                }).when('/purple', {
+                    template: '<h1 style="background-color:{{color}}">{{color | camel}} Page</h1>',
+                    controller: colors[3]
+                })
+                .otherwise({
+                    template: '<h1 style="background-color:{{color}}">None</h1><p>Nothing has been selected,</p>',
+                    controller: colors[4]
+                });
+            });
+            function createController(color) {
+                return function($scope) {
+                    $scope.color = color;
+                }
+            }
+            colors.map(function(str) {
+                app.controller(str, createController(str));
+            });
+        </script>
+    </body>
+
+</html>

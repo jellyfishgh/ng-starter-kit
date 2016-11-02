@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>w3css</title>
+    <!--<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">-->
+    <link rel="stylesheet" href="/lib/w3.css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>-->
+    <script src="/lib/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="userCtrl">
+    <div class="w3-container">
+        <h3>Users</h3>
+        <table class="w3-table w3-bordered w3-striped">
+            <tr>
+                <th>Edit</th>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tr ng-repeat="user in users">
+                <td>
+                    <button class="w3-btn w3-ripple" ng-click="editUser(user.id)">&#9998;Edit</button>
+                </td>
+                <td>{{user.id}}</td>
+                <td>{{user.fName}}</td>
+                <td>{{user.lName}}</td>
+            </tr>
+        </table>
+        <br/>
+        <button class="w3-btn w3-green w3-ripple" ng-click="editUser('new')">&#9998;Create New User</button>
+        <form ng-hide="hideform">
+            <h3 ng-show="edit">Create New User:</h3>
+            <h3 ng-hide="edit">Edit User:</h3>
+            <label>First Name:</label>
+            <input type="text" class="w3-input w3-border" ng-model="fName" ng-disabled="!edit" placeholder="First Name">
+            <br/>
+            <label>Last Name:</label>
+            <input type="text" class="w3-input w3-border" ng-model="lName" ng-disabled="!edit" placeholder="Last Name">
+            <br/>
+            <label>Password:</label>
+            <input type="password" class="w3-input w3 border" ng-model="passw1" placeholder="Password">
+            <br/>
+            <label>Repeat:</label>
+            <input type="password" class="w3-input w3 border" ng-model="passw2" placeholder="Repeat Password">
+            <br/>
+            <button class="w3-btn w3-green w3-ripple" ng-disabled="error || incomplete" ng-click="save()">&#10004;Save Changes</button>
+        </form>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('userCtrl', function($scope) {
+            $scope.fName = '';
+            $scope.lName = '';
+            $scope.passw1 = '';
+            $scope.passw2 = '';
+            $scope.users = [
+                {id:1, fName:'Hege',lName:"Pege" },
+                {id:2, fName:'Kim',lName:"Pim" },
+                {id:3, fName:'Sal',lName:"Smith" },
+                {id:4, fName:'Jack',lName:"Jones" },
+                {id:5, fName:'John',lName:"Doe" },
+                {id:6, fName:'Peter',lName:"Pan" }
+            ];
+            $scope.hideform = true;
+            $scope.edit = true;
+            $scope.error = false;
+            $scope.incomplete = false;
+            $scope.editUser = function(id) {
+                $scope.hideform = false;
+                if(id === 'new') {
+                    $scope.edit = true;
+                    $scope.incomplete = true;
+                    $scope.fName = '';
+                    $scope.lName = '';
+                    $scope.passw1 = '';
+                    $scope.passw2 = '';
+                } else {
+                    $scope.edit = false;
+                    $scope.fName = $scope.users[id - 1].fName;
+                    $scope.lName = $scope.users[id - 1].lName;
+                }
+            }
+            $scope.$watch('passw1', function() {
+                $scope.test('passw1');
+            });
+            $scope.$watch('passw2', function() {
+                $scope.test('passw2');
+            });
+            $scope.$watch('fName', function() {
+                $scope.test('fName');
+            });
+            $scope.$watch('lName', function() {
+                $scope.test('lName');
+            });
+            $scope.test = function(item) {
+                console.log(item)
+                if($scope.passw1 !== $scope.passw2) {
+                    $scope.error = true;
+                } else {
+                    $scope.error = false;
+                }
+                $scope.incomplete = false;
+                if($scope.edit && (!$scope.fName.length || !$scope.lName.length || !$scope.passw1.length || !$scope.passw2.length)) {
+                    $scope.incomplete = true;
+                }
+            }
+            $scope.save = function() {
+                if($scope.edit) {
+                    $scope.users.push({
+                        id: $scope.users.length + 1,
+                        fName: $scope.fName,
+                        lName: $scope.lName
+                    });
+                    $scope.editUser('new');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

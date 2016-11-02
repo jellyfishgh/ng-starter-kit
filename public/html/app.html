@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>index</title>
+        <script src="/lib/angular.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="/lib/w3.css" media="screen" title="no title">
+    </head>
+    <body>
+        <div ng-app="myShoppingList" ng-controller="myCtrl" class="w3-card w3-margin" style="max-width:400px;">
+            <header class="w3-container w3-light-grey w3-padding-16">
+                <h3>My Shopping List</h3>
+            </header>
+            <ul class="w3-ul">
+                <li ng-repeat="x in products" class="w3-padding-16">
+                    {{x}}
+                    <span style="cursor:pointer" class="w3-right w3-margin-right" ng-click="removeItem($index)">&times;</span>
+                </li>
+            </ul>
+            <div class="w3-container w3-light-grey w3-padding-16">
+                <div class="w3-row w3-margin-top">
+                    <form name="myForm">
+                        <div class="w3-col s10">
+                            <input type="text" class="w3-input w3-border w3-padding" name="myInput" ng-model="addMe" required>
+                        </div>
+                        <div class="w3-col s2">
+                            <button ng-click="addItem()" class="w3-btn w3-padding w3-green" ng-disabled="myForm.myInput.$invalid">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <p class="w3-padding-left w3-text-red">{{errortext}}</p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var app = angular.module('myShoppingList', []);
+            app.controller('myCtrl', function($scope) {
+                $scope.products = ['Milk', 'Bread', 'Cheese'];
+                $scope.addItem = function() {
+                    if ($scope.products.indexOf($scope.addMe) === -1) {
+                        $scope.products.push($scope.addMe);
+                    } else {
+                        $scope.errortext = 'The item is already in your shopping list.';
+                    }
+                }
+                $scope.removeItem = function(index) {
+                    $scope.errortext = '';
+                    $scope.products.splice(index, 1);
+                }
+            });
+        </script>
+    </body>
+</html>
