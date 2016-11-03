@@ -13,9 +13,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function start(application, controller) {
     var app = _angular2.default.module(application, []);
-    app.controller(controller, function ($scope, $http) {
+    app.controller(controller, ['$scope', '$http', function ($scope, $http) {
         $http.get('/data/indexes.json').then(function (response) {
             $scope.indexes = response.data;
         });
-    });
+    }]);
+    /**
+    
+    */
 }

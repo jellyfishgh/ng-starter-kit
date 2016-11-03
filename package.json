@@ -8,6 +8,7 @@
     "babelify": "babel src -d public/dist",
     "browserify": "browserify public/dist/app.js -o public/bundle.js",
     "uglify": "uglifyjs public/bundle.js -c -o public/bundle.min.js",
+    "productify": "npm run babelify && npm run browserify && npm run uglify",
     "build": "webpack",
     "start:dev": "webpack-dev-server --inline --content-base public/ --history-api-fallback",
     "start": "npm run build && npm run start:dev"
