@@ -19,6 +19,8 @@ function start(application, controller) {
         });
     }]);
     /**
-    
+        https://code.angularjs.org/1.5.8/docs/tutorial/step_07
+        A Note on Minification
+        压缩时要注意
     */
 }
