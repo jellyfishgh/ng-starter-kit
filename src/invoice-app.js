@@ -3,7 +3,7 @@ import angular from 'angular'
 import FinanceService from './finance-service'
 import InvoiceController from './invoice-controller'
 
-angular.module('finance', [])
+export default angular.module('finance', [])
     .factory('currencyConverter', [
         '$http',
         FinanceService

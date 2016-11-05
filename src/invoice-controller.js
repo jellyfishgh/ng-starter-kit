@@ -1,4 +1,6 @@
-export default (currencyConverter) => {
+import angular from 'angular'
+
+export default function(currencyConverter) {
     this.qty = 1
     this.cost = 2
     this.inCurr = 'EUR'
@@ -9,4 +11,4 @@ export default (currencyConverter) => {
     this.pay = () => {
         window.alert('谢谢您的惠顾！')
     }
-} 
+}

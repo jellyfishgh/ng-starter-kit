@@ -5,10 +5,7 @@ export default ($http) => {
     const YAHOO_FINANCE_PATTERN = `//query.yahooapis.com/v1/public/yql?q=${q}&format=${format}&env=${env}`
     const currencies = ['USD', 'EUR', 'CNY']
     let usdToForeignRates = {}
-    const convert = (amount, inCurr, outCurr) => {
-        return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr]
-    }
-    (() => {
+    function refresh(){
         const url = YAHOO_FINANCE_PATTERN.replace('PAIRS', `USD${currencies.join('","USD')}`)
         return $http.get(url).then((response) => {
             const newUsdToForeignRates = {}
@@ -17,9 +14,12 @@ export default ($http) => {
             })
             usdToForeignRates = newUsdToForeignRates
         })
-    })()
+    }
+    refresh()
     return {
         currencies: currencies,
-        convert: convert
+        convert: (amount, inCurr, outCurr) => {
+            return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr]
+        }
     }
 }

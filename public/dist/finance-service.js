@@ -11,10 +11,7 @@ exports.default = function ($http) {
     var YAHOO_FINANCE_PATTERN = '//query.yahooapis.com/v1/public/yql?q=' + q + '&format=' + format + '&env=' + env;
     var currencies = ['USD', 'EUR', 'CNY'];
     var usdToForeignRates = {};
-    var convert = function convert(amount, inCurr, outCurr) {
-        return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
-    };
-    (function () {
+    function refresh() {
         var url = YAHOO_FINANCE_PATTERN.replace('PAIRS', 'USD' + currencies.join('","USD'));
         return $http.get(url).then(function (response) {
             var newUsdToForeignRates = {};
@@ -23,9 +20,12 @@ exports.default = function ($http) {
             });
             usdToForeignRates = newUsdToForeignRates;
         });
-    })();
+    }
+    refresh();
     return {
         currencies: currencies,
-        convert: convert
+        convert: function convert(amount, inCurr, outCurr) {
+            return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
+        }
     };
 };

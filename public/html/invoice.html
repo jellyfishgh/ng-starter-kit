@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>invoice</title>
     <link rel="stylesheet" type="text/css" href="/lib/w3.css">
-    <script src="/invoice-app.bundle.js"></script>
+    <script src="/invoice-app.bundle.min.js"></script>
+    <!-- <script src="/lib/angular.min.js"></script>
+    <script src="/js/invoice.js"></script>
+    <script src="/js/finance.js"></script> -->
 </head>
 <body>
     <div ng-app="invoiceApp" ng-controller="InvoiceController as invoice">
@@ -20,7 +23,7 @@
         </div>
         <div>
             <b>总价：</b>
-            <span ng-repeat="c in invoice.currencies">{{invoice.total(c) | currency:c}}</span>
+            <span class="w3-margin" ng-repeat="c in invoice.currencies">{{invoice.total(c) | currency:c}}</span>
             <br/>
             <button class="w3-btn" ng-click="invoice.pay()">付款</button>
         </div>

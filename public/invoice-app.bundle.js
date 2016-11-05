@@ -31785,10 +31785,7 @@ exports.default = function ($http) {
     var YAHOO_FINANCE_PATTERN = '//query.yahooapis.com/v1/public/yql?q=' + q + '&format=' + format + '&env=' + env;
     var currencies = ['USD', 'EUR', 'CNY'];
     var usdToForeignRates = {};
-    var convert = function convert(amount, inCurr, outCurr) {
-        return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
-    };
-    (function () {
+    function refresh() {
         var url = YAHOO_FINANCE_PATTERN.replace('PAIRS', 'USD' + currencies.join('","USD'));
         return $http.get(url).then(function (response) {
             var newUsdToForeignRates = {};
@@ -31797,14 +31794,21 @@ exports.default = function ($http) {
             });
             usdToForeignRates = newUsdToForeignRates;
         });
-    })();
+    }
+    refresh();
     return {
         currencies: currencies,
-        convert: convert
+        convert: function convert(amount, inCurr, outCurr) {
+            return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
+        }
     };
 };
 },{}],4:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _angular = require('angular');
 
@@ -31820,7 +31824,8 @@ var _invoiceController2 = _interopRequireDefault(_invoiceController);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_angular2.default.module('finance', []).factory('currencyConverter', ['$http', _financeService2.default]);
+exports.default = _angular2.default.module('finance', []).factory('currencyConverter', ['$http', _financeService2.default]);
+
 
 _angular2.default.module('invoiceApp', ['finance']).controller('InvoiceController', ['currencyConverter', _invoiceController2.default]);
 },{"./finance-service":3,"./invoice-controller":5,"angular":2}],5:[function(require,module,exports){
@@ -31831,15 +31836,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (currencyConverter) {
-    undefined.qty = 1;
-    undefined.cost = 2;
-    undefined.inCurr = 'EUR';
-    undefined.currencies = currencyConverter.currencies;
-    undefined.total = function (outCurr) {
-        return currencyConverter.convert(undefined.qty * undefined.cost, undefined.inCurr, outCurr);
+    var _this = this;
+
+    this.qty = 1;
+    this.cost = 2;
+    this.inCurr = 'EUR';
+    this.currencies = currencyConverter.currencies;
+    this.total = function (outCurr) {
+        return currencyConverter.convert(_this.qty * _this.cost, _this.inCurr, outCurr);
     };
-    undefined.pay = function () {
+    this.pay = function () {
         window.alert('谢谢您的惠顾！');
     };
 };
-},{}]},{},[4]);
+
+var _angular = require('angular');
+
+var _angular2 = _interopRequireDefault(_angular);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"angular":2}]},{},[4]);
