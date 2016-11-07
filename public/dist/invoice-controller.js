@@ -18,9 +18,3 @@ exports.default = function (currencyConverter) {
         window.alert('谢谢您的惠顾！');
     };
 };
-
-var _angular = require('angular');
-
-var _angular2 = _interopRequireDefault(_angular);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

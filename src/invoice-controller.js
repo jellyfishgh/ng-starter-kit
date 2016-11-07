@@ -1,5 +1,3 @@
-import angular from 'angular'
-
 export default function(currencyConverter) {
     this.qty = 1
     this.cost = 2
