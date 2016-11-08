@@ -1,0 +1,35 @@
+.example {
+  border: thin solid red;
+  padding: 10px;
+}
+
+.mainImg {
+  width: 160px;
+  height: 195px;
+  border: thin solid black;
+  float: right;
+  margin: 0px 0px 10px 5px;
+}
+
+.thumbs {
+  clear: both;
+  overflow: auto;
+  border: thin solid silver;
+  padding: 5px 10px;
+}
+
+.thumbDiv {
+  border: thin solid green;
+  padding: 5px;
+  margin: 10px 0px;
+  overflow: auto;
+}
+
+.thumb {
+  width: 80px;
+  height: 87px;
+  border: thin solid black;
+  cursor: pointer;
+  float: left;
+  margin-right: 5px;
+}
