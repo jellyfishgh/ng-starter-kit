@@ -11,6 +11,10 @@
     <script src="./../js/child-scope.js"></script>
 </head>
 <body ng-controller="MainCtrl">
+    <ul>
+        <li>The following create new scopes, and inherit prototypically: ng-repeat, ng-include, ng-switch, ng-view, ng-controller, directive with scope: true, directive with transclude: true.</li>
+        <li>The following creates a new scope which does not inherit prototypically: directive with scope: { ... }. This creates an "isolate" scope instead.</li>
+    </ul>
     <h1>ng-click inside ng-repeat setting value on parent scope</h1>
     <h3>Using primitive:</h3>
     <div class="example">
