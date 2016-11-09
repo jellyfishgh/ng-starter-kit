@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>guide-expression-guide</title>
+</head>
+
+<body ng-app="gee">
+    <div ng-controller="EventController">
+        <button ng-click="clickMe($event)">Event</button>
+        <p><code>$event</code>:
+            <pre>{{$event | json}}</pre>
+        </p>
+        <p><code>clickEvent</code>:
+            <pre>{{clickEvent | json}}</pre>
+        </p>
+    </div>
+    <script src="/lib/angular.min.js"></script>
+    <script>
+        angular.module('gee', [])
+            .controller('EventController', ['$scope', function($scope) {
+                $scope.clickMe = function(clickEvent) {
+                    $scope.clickEvent = simpleKeys(clickEvent);
+                    console.log(clickEvent);
+                }
+                function simpleKeys(original) {
+                    return Object.keys(original).reduce(function(obj, key) {
+                        obj[key] = typeof original[key] === 'function' ? '{ ... }' : original[key];
+                        return obj;
+                    }, {});
+                }
+            }]);
+    </script>
+</body>
+
+</html>

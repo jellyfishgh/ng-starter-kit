@@ -10,7 +10,7 @@
     "uglify": "uglifyjs public/bundle.js -c -o public/bundle.min.js",
     "productify": "npm run babelify && npm run browserify && npm run uglify",
     "build": "webpack",
-    "start:dev": "webpack-dev-server --inline --content-base public/ --history-api-fallback",
+    "start:dev": "node tool.js && webpack-dev-server --inline --content-base public/ --history-api-fallback",
     "start": "npm run build && npm run start:dev"
   },
   "repository": {
